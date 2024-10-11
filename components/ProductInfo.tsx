@@ -19,7 +19,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
   return (
     <div className="max-w-[400px] flex flex-col gap-4">
       <div className="flex justify-between items-center gap-4">
-        <p className="text-heading3-bold">{productInfo.title}</p>
+        <p className="text-heading3-bold text-primary">{productInfo.title}</p>
         <HeartComponent product={productInfo} />
       </div>
 
@@ -28,7 +28,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
         <p className="text-base-bold">{productInfo.category}</p>
       </div>
 
-      <p className="text-heading3-bold">${productInfo.price}</p>
+      <p className="text-heading3-bold text-primary">${productInfo.price}</p>
 
       <div className="flex flex-col gap-2">
         <p className="text-base-medium text-grey-2">Description:</p>
@@ -42,8 +42,8 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
             {productInfo.colors.map((color, index) => (
               <p
                 key={index}
-                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${
-                  selectedColor === color && "bg-black text-white"
+                className={`border border-primary px-2 py-1 rounded-lg cursor-pointer ${
+                  selectedColor === color && "bg-quaternary text-primary"
                 }`}
                 onClick={() => setSelectedColor(color)}
               >
@@ -61,8 +61,8 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
             {productInfo.sizes.map((size, index) => (
               <p
                 key={index}
-                className={`border border-black px-2 py-1 rounded-lg cursor-pointer ${
-                  selectedSize === size && "bg-black text-white"
+                className={`border border-primary px-2 py-1 rounded-lg cursor-pointer ${
+                  selectedSize === size && "bg-quaternary text-primary"
                 }`}
                 onClick={() => setSelectedSize(size)}
               >
@@ -75,7 +75,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
 
       <div className="flex flex-col gap-2">
         <p className="text-base-medium text-grey-2">Quantity:</p>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-center text-primary">
           <MinusCircle
             className={`${
               quantity === 1 ? "text-grey-2" : "hover:text-red-1 cursor-pointer"
@@ -91,7 +91,7 @@ const ProductInfo = ({ productInfo }: { productInfo: ProductType }) => {
       </div>
 
       <button
-        className="outline text-base-bold py-3 rounded-lg hover:bg-black hover:text-white"
+        className="outline outline-primary text-primary text-base-bold py-3 rounded-lg hover:bg-primary hover:text-white transition-colors duration-300"
         onClick={() =>
           cart.addItem({
             item: productInfo,

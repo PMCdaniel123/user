@@ -4,8 +4,8 @@ import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
-  title: "Borcelle - Store Auth",
-  description: "Ecommerce store",
+  title: "Habseligkeit - Store Auth",
+  description: "Habseligkeit - Store Auth",
 };
 
 export default function RootLayout({

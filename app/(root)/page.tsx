@@ -9,7 +9,7 @@ export default function Home() {
         src="/banner.png"
         alt="banner"
         width={2000}
-        height={1000}
+        height={500}
         className="w-screen"
       />
       <Collections />

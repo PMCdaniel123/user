@@ -11,10 +11,11 @@ const Wishlist = () => {
   const [loading, setLoading] = useState(true);
   const [signedInUser, setSignedInUser] = useState<UserType | null>(null);
   const [wishlist, setWishlist] = useState<ProductType[]>([]);
+  const [visibleProducts, setVisibleProducts] = useState(5);
 
   const getUser = async () => {
     try {
-      const res = await fetch("/api/users");
+      const res = await fetch(`/api/users`);
       const data = await res.json();
       setSignedInUser(data);
       setLoading(false);
@@ -56,20 +57,40 @@ const Wishlist = () => {
     setSignedInUser(updateUser);
   };
 
+  const handleLoadMore = () => {
+    setVisibleProducts((prev) => prev + 5);
+  };
+
   return loading ? (
     <Loader />
   ) : (
-    <div className="px-10 py-5">
-      <p className="text-heading3-bold my-10">Your wishlist</p>
+    <div className="p-20 bg-quaternary mt-20">
+      <p className="text-heading1-bold text-center text-primary mb-12">
+        Your wishlist
+      </p>
 
       {wishlist.length === 0 ? (
         <p className="text-body-bold my-5">No items in your wishlist.</p>
       ) : (
-        <div className="flex flex-wrap justify-center gap-16">
-          {wishlist.map((product) => (
-            <ProductCard key={product._id} product={product} updateSignedInUser={updateSignedInUser}/>
-          ))}
-        </div>
+        <>
+          <div className="grid items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 w-full max-w-[1400px] mx-auto">
+            {wishlist.map((product) => (
+              <ProductCard
+                key={product._id}
+                product={product}
+                updateSignedInUser={updateSignedInUser}
+              />
+            ))}
+          </div>
+          {visibleProducts < wishlist.length && (
+            <button
+              onClick={handleLoadMore}
+              className="mt-10 px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-primary-dark transition-colors duration-300"
+            >
+              Load More
+            </button>
+          )}
+        </>
       )}
     </div>
   );

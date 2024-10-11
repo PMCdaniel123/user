@@ -1,11 +1,9 @@
 export const getCollections = async () => {
-  const collections = await fetch(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/collections`
   );
-
-  console.log(collections);
-
-  return await collections.json();
+  const data = await response.json();
+  return data;
 };
 
 export const getCollectionDetail = async (collectionId: string) => {

@@ -18,6 +18,7 @@ const HeartComponent = ({ product, updateSignedInUser }: HeartProps) => {
   const [loading, setLoading] = useState(false);
   const [isLike, setIsLike] = useState(false);
 
+  // Fetch user wishlist status
   const getUser = async () => {
     try {
       setLoading(true);
@@ -26,7 +27,7 @@ const HeartComponent = ({ product, updateSignedInUser }: HeartProps) => {
       setIsLike(data.wishlist.includes(product._id));
       setLoading(false);
     } catch (error) {
-      console.log("USER_GET", error);
+      console.error("USER_GET", error);
     }
   };
 
@@ -41,33 +42,40 @@ const HeartComponent = ({ product, updateSignedInUser }: HeartProps) => {
   ) => {
     e.preventDefault();
 
-    try {
-      if (!user) {
-        toast.error("You need to login!");
-        // router.push("/sign-in");
-        return;
-      } else {
-        setLoading(true);
-        const res = await fetch("/api/users/wishlist", {
-          method: "POST",
-          body: JSON.stringify({ productId: product._id }),
-        });
+    if (!user) {
+      toast.error("You need to login!");
+      return;
+    }
 
-        const updatedUser = await res.json();
-        setIsLike(updatedUser.wishlist.includes(product._id));
-        updateSignedInUser && updateSignedInUser(updatedUser);
-        setLoading(false);
-      }
+    try {
+      setLoading(true);
+      const res = await fetch("/api/users/wishlist", {
+        method: "POST",
+        body: JSON.stringify({ productId: product._id }),
+      });
+
+      const updatedUser = await res.json();
+      setIsLike(updatedUser.wishlist.includes(product._id));
+      updateSignedInUser && updateSignedInUser(updatedUser);
+      setLoading(false);
     } catch (error) {
-      console.log("WISHLIST_POST", error);
+      console.error("WISHLIST_POST", error);
+      setLoading(false);
     }
   };
 
-  return loading ? (
-    <Loader />
-  ) : (
-    <button type="button" onClick={handleLike}>
-      <Heart fill={`${isLike ? "red" : "white"}`} />
+  return (
+    <button
+      type="button"
+      onClick={handleLike}
+      className="relative flex items-center justify-center p-3 rounded-full transition-all duration-300 bg-red-50"
+    >
+      <Heart
+        className={`transition-transform transform hover:scale-125 duration-300 text-red-500
+        ${loading ? "animate-spin" : ""}`}
+        fill={isLike ? "red" : "none"}
+        size={24}
+      />
     </button>
   );
 };

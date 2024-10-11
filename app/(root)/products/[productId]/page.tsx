@@ -17,10 +17,12 @@ const ProductDetail = async ({ params }: { params: { productId: string } }) => {
           <ProductInfo productInfo={productDetail} />
         </div>
       </div>
-      <div className="flex flex-col items-center px-10 py-5 max-md:px-3">
-        <p className="text-heading3-bold">Related Products</p>
-        <div className="flex flex-wrap gap-16 mx-auto mt-8">
-          {relatedProducts?.map((product: ProductType) => (
+      <div className="flex flex-col items-center mt-20 p-20 bg-quaternary gap-12">
+        <p className="text-heading2-bold text-center text-primary">
+          Related Products
+        </p>
+        <div className="grid items-center grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-10 w-full max-w-[1400px] mx-auto">
+          {relatedProducts?.slice(0, 5).map((product: ProductType) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>

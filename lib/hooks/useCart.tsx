@@ -43,22 +43,22 @@ const useCart = create(
         toast.success("Item removed from cart");
       },
       increaseQuantity: (_id: string) => {
-        const newCartItems = get().cartItems.filter((cartItem) =>
+        const newCartItems = get().cartItems.map((cartItem) =>
           cartItem.item._id === _id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem
         );
         set({ cartItems: newCartItems });
-        toast.success("Item removed increase");
+        toast.success("Item increase");
       },
       decreaseQuantity: (_id: string) => {
-        const newCartItems = get().cartItems.filter((cartItem) =>
+        const newCartItems = get().cartItems.map((cartItem) =>
           cartItem.item._id === _id
             ? { ...cartItem, quantity: cartItem.quantity - 1 }
             : cartItem
         );
         set({ cartItems: newCartItems });
-        toast.success("Item removed decrease");
+        toast.success("Item decrease");
       },
       clearCart: () => {
         set({ cartItems: [] });

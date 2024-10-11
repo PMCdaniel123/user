@@ -52,7 +52,7 @@ const Cart = () => {
   return (
     <div className="flex gap-20 py-16 px-10 max-lg:flex-col">
       <div className="w-2/3 max-lg:w-full">
-        <p className="text-heading3-bold">Shopping Cart</p>
+        <p className="text-heading2-bold text-primary">Shopping Cart</p>
         <hr className="my-6" />
 
         {cart.cartItems.length === 0 ? (
@@ -62,7 +62,7 @@ const Cart = () => {
             {cart.cartItems.map((cartItem, index) => (
               <div
                 key={index}
-                className="w-full flex max-sm:flex-col max-sm:gap-3 hover:bg-grey-1 px-6 py-5 justify-between items-center max-sm:items-start"
+                className="w-full grid grid-cols-[5fr_2fr_0.5fr] max-sm:flex max-sm:flex-col rounded-lg max-sm:gap-3 hover:bg-quaternary px-6 py-5 justify-between items-center max-sm:items-start"
               >
                 <div className="flex items-center">
                   <Image
@@ -72,7 +72,7 @@ const Cart = () => {
                     height={100}
                     className="rounded-lg w-32 h-32 object-cover"
                   />
-                  <div className="flex flex-col gap-3 ml-4">
+                  <div className="flex flex-col gap-3 ml-4 text-secondary">
                     <p className="text-body-bold">{cartItem.item.title}</p>
                     {cartItem.color && (
                       <p className="text-small-medium">{cartItem.color}</p>
@@ -84,7 +84,7 @@ const Cart = () => {
                   </div>
                 </div>
 
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-4 items-center text-primary">
                   <MinusCircle
                     className={`${
                       cartItem.quantity === 1
@@ -101,7 +101,7 @@ const Cart = () => {
                 </div>
 
                 <Trash
-                  className="hover:text-red-1 cursor-pointer"
+                  className="hover:text-red-1 cursor-pointer text-primary"
                   onClick={() => cart.removeItem(cartItem.item._id)}
                 />
               </div>
@@ -110,19 +110,19 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-grey-1 rounded-lg px-4 py-5">
+      <div className="w-1/3 max-lg:w-full flex flex-col gap-8 bg-quaternary rounded-lg px-4 py-5 text-primary">
         <p className="text-heading4-bold">
           Summary{" "}
           <span>{`${cart.cartItems.length} ${
             cart.cartItems.length > 1 ? "items" : "item"
           }`}</span>
         </p>
-        <div className="flex justify-between text-body-semibold">
+        <div className="flex justify-between text-body-semibold mt-8">
           <span>Total Amount</span>
           <span>${totalRounded}</span>
         </div>
         <button
-          className="border rounded-lg text-body-bold bg-white py-3 w-full hover:bg-black hover:text-white"
+          className="outline outline-primary rounded-lg text-body-bold bg-white py-3 w-full hover:bg-primary hover:text-white transition-colors duration-300"
           onClick={handleCheckout}
         >
           Proceed to Checkout

@@ -17,39 +17,47 @@ const NavBar = () => {
   const pathName = usePathname();
 
   return (
-    <div className="sticky top-0 z-10 py-2 px-10 max-sm:px-2 flex gap-2 justify-between items-center bg-white">
-      <Link href="/">
-        <Image src="/logo.png" alt="logo" width={130} height={100} />
+    <div className="sticky top-0 z-50 px-10 max-sm:px-2 flex justify-between items-center bg-white shadow-lg">
+      <Link href="/" className="flex items-center">
+        <Image src="/logo.png" alt="logo" width={120} height={60} />
       </Link>
 
-      <div className="flex gap-4 text-base-bold max-lg:hidden">
+      <div className="hidden md:flex gap-10 justify-between items-center text-heading4-bold font-medium">
         <Link
           href="/"
-          className={`${pathName === "/" ? "text-red-1" : "hover:text-red-1"}`}
+          className={`${
+            pathName === "/"
+              ? "text-primary font-semibold border-b-2 p-2 border-primary"
+              : "text-tertiary hover:text-primary"
+          } transition duration-200`}
         >
           Home
         </Link>
         <Link
           href={user ? "/wishlist" : "/sign-in"}
           className={`${
-            pathName === "/wishlist" ? "text-red-1" : "hover:text-red-1"
-          }`}
+            pathName === "/wishlist"
+              ? "text-primary font-semibold border-b-2 p-2 border-primary"
+              : "text-tertiary hover:text-primary"
+          } transition duration-200`}
         >
           Wishlist
         </Link>
         <Link
           href={user ? "/orders" : "/sign-in"}
           className={`${
-            pathName === "/orders" ? "text-red-1" : "hover:text-red-1"
-          }`}
+            pathName === "/orders"
+              ? "text-primary font-semibold border-b-2 p-2 border-primary"
+              : "text-tertiary hover:text-primary"
+          } transition duration-200`}
         >
           Orders
         </Link>
       </div>
 
-      <div className="flex gap-3 border border-grey-2 px-3 py-1 items-center rounded-lg">
+      <div className="flex gap-3 items-center text-primary border border-tertiary rounded-lg bg-white px-4 py-2 focus-within:border-primary">
         <input
-          className="max-sm:max-w-[120px] outline-none"
+          className="w-full outline-none bg-transparent text-sm bg-white"
           placeholder="Search..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
@@ -58,47 +66,49 @@ const NavBar = () => {
           disabled={query === ""}
           onClick={() => router.push(`/search/${query}`)}
         >
-          <Search className="cursor-pointer h-4 w-4 hover:text-red-1" />
+          <Search className="cursor-pointer hover:text-primary transition duration-200" />
         </button>
       </div>
 
-      <div className="flex gap-3 items-center relative">
+      <div className="flex items-center gap-4 relative">
         <Link
           href="/cart"
-          className="flex items-center gap-3 border px-2 py-1 rounded-lg hover:bg-black hover:text-white max-md:hidden"
+          className="hidden md:flex items-center gap-2 px-3 py-2 border border-tertiary text-primary rounded-lg hover:bg-primary hover:text-white transition duration-200"
         >
           <ShoppingCart />
-          <p className="text-base-bold">Cart {cart.cartItems.length}</p>
+          <p className="font-medium text-sm">Cart {cart.cartItems.length}</p>
         </Link>
 
         <Menu
-          className="cursor-pointer lg:hidden"
+          className="cursor-pointer lg:hidden text-gray-600 hover:text-primary transition duration-200"
           onClick={() => setDropdownMenu(!dropdownMenu)}
         />
 
         {dropdownMenu && (
-          <div className="absolute top-12 right-5 flex flex-col gap-4 p-3 rounded-lg border bg-white text-base-bold lg:hidden">
-            <Link href="/" className="hover:text-red-1">
+          <div className="absolute top-14 right-0 w-40 p-3 bg-white shadow-md rounded-lg z-50 flex flex-col gap-3">
+            <Link href="/" className="hover:text-primary">
               Home
             </Link>
             <Link
               href={user ? "/wishlist" : "/sign-in"}
-              className="hover:text-red-1"
+              className="hover:text-primary"
             >
               Wishlist
             </Link>
             <Link
               href={user ? "/orders" : "/sign-in"}
-              className="hover:text-red-1"
+              className="hover:text-primary"
             >
               Orders
             </Link>
             <Link
               href="/cart"
-              className="flex items-center gap-3 border px-2 py-1 rounded-lg hover:bg-black hover:text-white"
+              className="flex items-center gap-3 px-2 py-1 border rounded-lg hover:bg-primary hover:text-white transition duration-200"
             >
               <ShoppingCart />
-              <p className="text-base-bold">Cart {cart.cartItems.length}</p>
+              <p className="font-medium text-sm">
+                Cart {cart.cartItems.length}
+              </p>
             </Link>
           </div>
         )}
@@ -107,7 +117,10 @@ const NavBar = () => {
           <UserButton afterSwitchSessionUrl="/sign-in" />
         ) : (
           <Link href="/sign-in">
-            <CircleUserRound />
+            <CircleUserRound
+              size={30}
+              className="cursor-pointer text-tertiary hover:text-primary transition duration-200"
+            />
           </Link>
         )}
       </div>
