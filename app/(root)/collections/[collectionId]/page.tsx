@@ -19,7 +19,7 @@ const CollectionDetail = async ({
         className="w-full h-[800px] object-cover"
       />
 
-      <div className="flex flex-col items-center justify-center gap-12 p-20 bg-quaternary mt-20">
+      <div className="flex flex-col items-center justify-center gap-12 p-20 bg-quaternary mt-20 w-full">
         <p className="text-heading1-bold text-center text-primary">
           {collection.title}
         </p>
